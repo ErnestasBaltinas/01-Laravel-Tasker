@@ -15,11 +15,27 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::group(['middleware' => ['web']], function () {
+
     /**
      * Show Task Dashboard
      */
 
     Route::get('/', function () {
+
+        $currentLocale = App::getLocale();
+
+        if(Session::has('locale')){
+            $currentLocale = Session::get('locale');
+        }
+
+        return redirect('/'.$currentLocale);
+    });
+
+    Route::get('/{locale}', function ($locale) {
+
+        Session::set('locale', $locale);
+
+        App::setLocale($locale);
         return view('tasks', [
             'tasks' => Task::orderBy('created_at', 'asc')->get()
         ]);
@@ -72,4 +88,14 @@ Route::group(['middleware' => ['web']], function () {
         return redirect('/');
     });
 
+    /* Locale Test */
+    Route::get('/welcome', function () {
+        return redirect('/welcome/en');
+    });
+
+    Route::get('/welcome/{locale}', function ($locale) {
+
+        App::setLocale($locale);
+        return view('welcome');
+    });
 });

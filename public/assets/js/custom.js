@@ -4,8 +4,6 @@
 
 // A $( document ).ready() block.
 $( document ).ready(function() {
-    console.log( "ready!" );
-
 
     $('#editModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -20,4 +18,10 @@ $( document ).ready(function() {
         modal.find('.modal-body #task-description').val(taskDescription);
 
     })
+
+    $( ".panel-heading-toggle" ).each(function( index ) {
+        $(this).click(function(){
+            $(this).next().slideToggle();
+        });
+    });
 });

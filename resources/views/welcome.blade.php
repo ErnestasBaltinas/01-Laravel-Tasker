@@ -39,7 +39,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
-                <div class="content">This is a test stuff</div>
+                <div class="content">
+                    {{ trans('messages.welcome') }}
+                </div>
             </div>
         </div>
     </body>
